@@ -16,7 +16,8 @@ class Graphic():
         self.tank_location = [40, 40]
         self.TANK_COLOR_UNDER = [0, 102, 0]
         self.TANK_COLOR_UP = [0, 153, 0]
-        self.BLACK = [255, 255, 255]
+        self.WHITE = [255, 255, 255]
+        self.BLACK = [0, 0, 0]
         self.BACKGROUND_1 = [89, 89, 89]
         self.TANK_R = 10
         self.TANK_CANNON_WIDTH = 2
@@ -24,25 +25,23 @@ class Graphic():
 
     def draw_tank(self):
         if (self.tank_direction  == self.UP) or (self.tank_direction == self.DOWN):
-            pg.draw.rect(self.screen, self.TANK_COLOR_UNDER, self.tank_location + str(self.TANK_WIDTH)+str(self.TANK_LENGTH))
+            pg.draw.rect(self.screen, self.TANK_COLOR_UNDER, self.tank_location + [self.TANK_WIDTH] + [self.TANK_LENGTH])
         else:
-            pg.draw.rect(self.screen, self.TANK_COLOR_UNDER, self.tank_location + str(self.TANK_LENGTH)+str(self.TANK_WIDTH))
-        pg.draw.circle(self.screen, self.TANK_COLOR_UP, str(self.tank_location[0]+13) + str(self.tank_location[1]+20), self.TANK_R)
+            pg.draw.rect(self.screen, self.TANK_COLOR_UNDER, self.tank_location + [self.TANK_LENGTH] + [self.TANK_WIDTH])
+        pg.draw.circle(self.screen, self.TANK_COLOR_UP, [self.tank_location[0]+13] + [self.tank_location[1]+20], self.TANK_R)
         if (self.tank_direction  == self.UP):
-            pg.draw.rect(self.screen, self.TANK_COLOR_UNDER,str(self.tank_location[0]+self.TANK_WIDTH/2) + str(self.tank_location[1]) + [2] + str(self.TANK_LENGTH/2))
-        elif (self.TankDirection  == self.DOWN):
-            pg.draw.rect(self.screen, self.TANK_COLOR_UNDER, str(self.tank_location[0]+self.TANK_WIDTH/2) + str(self.tank_location[1]+self.TANK_LENGTH/2) + [2] + str(self.TANK_LENGTH/2))
+            pg.draw.rect(self.screen, self.TANK_COLOR_UP,[self.tank_location[0]+self.TANK_WIDTH/2-1] + [self.tank_location[1]] + [2] + [self.TANK_LENGTH/2])
+        elif (self.tank_direction  == self.DOWN):
+            pg.draw.rect(self.screen, self.TANK_COLOR_UP, [self.tank_location[0]+self.TANK_WIDTH/2-1] + [self.tank_location[1]+self.TANK_LENGTH/2] + [2] + [self.TANK_LENGTH/2])
         elif (self.tank_direction  == self.LEFT):
-            pg.draw.rect(self.screen, self.TANK_COLOR_UNDER, str(self.tank_location[0]) + str(self.tank_location[1]+self.TANK_WIDTH/2) + str(self.TANK_LENGTH/2) + [2])
+            pg.draw.rect(self.screen, self.TANK_COLOR_UP, [self.tank_location[0]] + [self.tank_location[1]+self.TANK_WIDTH/2] + [self.TANK_LENGTH/2] + [2])
         elif (self.tank_direction  == self.RIGHT):
-            pg.draw.rect(self.screen, self.TANK_COLOR_UNDER, str(self.tank_location[0]+self.TANK_LENGTH/2) + str(self.tank_location[1]+self.TANK_WIDTH/2) + str(self.TANK_LENGTH/2) + [2])
+            pg.draw.rect(self.screen, self.TANK_COLOR_UP, [self.tank_location[0]+self.TANK_LENGTH/2] + [self.tank_location[1]+self.TANK_WIDTH/2] + [self.TANK_LENGTH/2] + [2])
         
     def draw_background(self):
         pg.draw.rect(self.screen, self.BACKGROUND_1, [0, 0, 800, 800])
 
     def test(self):
-        print(self.tank_location + str(self.TANK_WIDTH)+str(self.TANK_LENGTH))
-    """
         self.playing = True
         clock = pg.time.Clock()
         clock.tick(10)
@@ -51,10 +50,10 @@ class Graphic():
                 if event.type == pg.QUIT:
                     self.playing = False
             self.draw_background()
+            self.tank_direction = self.DOWN
             self.draw_tank()
             pg.display.flip()
         pg.quit()
-    """
 
 if __name__ == '__main__':
     T = Graphic()
